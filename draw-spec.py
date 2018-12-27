@@ -4,18 +4,21 @@ import pandas as pd
 import numpy as np
 import time
 import os
+import sys
 from os.path import join as pjoin
 
 
 # result_dir = os.path.expanduser('~/projects/autoMBA/fpga/build')
-result_dir = os.path.expanduser('~/projects/autoMBA-figure/openocd/cp/results')
+# result_dir = os.path.expanduser('~/projects/autoMBA-figure/openocd/cp/results')
+# result_dir = './openocd/cp/results'
 
-def main():
+def main(log_file):
 
-    logs = [f for f in os.listdir(result_dir) \
-            if f.endswith('log')]
-    params = [x.split('.')[0] for x in logs]
-    logs = [pjoin(result_dir, f) for f in logs]
+    # logs = [f for f in os.listdir(result_dir) \
+    #         if f.endswith('log')]
+    logs = [log_file]
+    params = [log_file.split('/')[-2] for x in logs]
+    # logs = [pjoin(result_dir, f) for f in logs]
     # print(params)
     # print(logs)
 
@@ -37,6 +40,8 @@ def main():
         #     break
 
         for param, f in zip(params, logs):
+            if f != log_file:
+                continue
             traffics = get_emu_traffic(f)
             for dsid, traffic in traffics.items():
                 matrix = np.array(traffic)
@@ -54,4 +59,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv[1])

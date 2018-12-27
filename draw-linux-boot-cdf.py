@@ -22,7 +22,7 @@ def main():
     fig, ax = plt.subplots()
 
     shapes = ['', '--']
-    colors = ['r', 'y', 'g', 'c', 'b', 'm', 'k']
+    colors = ['r', 'b', 'g', 'c', 'm', 'y']
     assert len(colors) > len(params)
     while True:
         ax.set_ylabel('Cumulative Traffic')
@@ -31,7 +31,7 @@ def main():
         traffics = get_emu_traffic(pjoin(result_dir, 'solo.log'))
         for dsid, traffic in traffics.items():
             matrix = np.array(traffic)
-            ax.plot(matrix[:, 0], matrix[:, 1], 'r',
+            ax.plot(matrix[:, 0], matrix[:, 1], 'k',
                     label='solo c{}'.format(dsid))
             break
 
