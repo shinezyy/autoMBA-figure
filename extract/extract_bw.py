@@ -21,9 +21,9 @@ def cal_bw(log_file: str, start, end, dsid=None) -> float:
         total_bw = 0
         for d in traffics:
             per_id_log = traffics[d]
-            bw += float(per_id_log[-1][1] - per_id_log[0][1])/(
+            bw = float(per_id_log[-1][1] - per_id_log[0][1])/(
                     per_id_log[-1][0] - per_id_log[0][0]) * 1000
-            print(bw)
+            # print(bw)
             total_bw += bw
         return total_bw
     else:
